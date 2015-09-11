@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         
         // Create a button, add it as a subview
         let buttonFrame = CGRect(x: 100, y: 250, width: 200, height: 100)
-        var button = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        let button = UIButton(type: UIButtonType.System)
         button.frame = buttonFrame
         button.setTitle("Click", forState: UIControlState.Normal)
         view.addSubview(button)
@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     }
     
     func printClick() {
-        print("clicked.")
+        print("clicked.", terminator: "")
     }
     
 }

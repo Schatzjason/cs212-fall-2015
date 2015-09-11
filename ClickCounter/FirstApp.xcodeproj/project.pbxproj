@@ -156,6 +156,8 @@
 		4DBE2F881B993DBD0091CE89 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "Jason Schatz";
 				TargetAttributes = {
@@ -409,6 +411,7 @@
 				4DBE2FB11B993DBD0091CE89 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4DBE2FB21B993DBD0091CE89 /* Build configuration list for PBXNativeTarget "FirstAppTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +420,7 @@
 				4DBE2FB41B993DBD0091CE89 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
