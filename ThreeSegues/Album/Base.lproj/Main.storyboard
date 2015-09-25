@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="Album" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UpL-Bx-eC9">
+                                <rect key="frame" x="245" y="285" width="111" height="30"/>
+                                <state key="normal" title="Named Segue">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="presetOrangeUsingNamedSegue:" destination="vXZ-lx-hvc" eventType="touchDown" id="9RJ-ly-Uv0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ErQ-gE-HVg">
+                                <rect key="frame" x="233" y="234" width="135" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="2zR-Ef-oQB"/>
+                                    <constraint firstAttribute="width" constant="135" id="Iwr-au-lrJ"/>
+                                </constraints>
+                                <state key="normal" title="All Code">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="presentOrangeUsingAllCode" destination="vXZ-lx-hvc" eventType="touchDown" id="mwT-JV-0eL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TIz-lB-d4y">
+                                <rect key="frame" x="233" y="340" width="135" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="135" id="HoR-5P-cQU"/>
+                                    <constraint firstAttribute="height" constant="30" id="PE9-G4-6Jz"/>
+                                </constraints>
+                                <state key="normal" title="Triggered Seque">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="kkX-PP-BF5" kind="presentation" identifier="TriggeredSegue" id="ouP-NY-YhF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TIz-lB-d4y" firstAttribute="top" secondItem="UpL-Bx-eC9" secondAttribute="bottom" constant="25" id="8L6-KN-dj5"/>
+                            <constraint firstAttribute="centerX" secondItem="ErQ-gE-HVg" secondAttribute="centerX" id="Lqq-Ik-sBj"/>
+                            <constraint firstAttribute="centerX" secondItem="UpL-Bx-eC9" secondAttribute="centerX" id="PKI-aD-9Tx"/>
+                            <constraint firstAttribute="centerY" secondItem="UpL-Bx-eC9" secondAttribute="centerY" id="c8V-ae-HN3"/>
+                            <constraint firstItem="UpL-Bx-eC9" firstAttribute="top" secondItem="ErQ-gE-HVg" secondAttribute="bottom" constant="21" id="jgT-Ez-5hP"/>
+                            <constraint firstAttribute="centerX" secondItem="TIz-lB-d4y" secondAttribute="centerX" id="xQE-ax-X7o"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="kkX-PP-BF5" kind="presentation" identifier="NamedSegue" id="NkQ-D8-hCp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="222" y="145"/>
+        </scene>
+        <!--Orange Modal View Controller-->
+        <scene sceneID="6s9-aw-Y0F">
+            <objects>
+                <viewController storyboardIdentifier="OrangeViewController" id="kkX-PP-BF5" customClass="OrangeModalViewController" customModule="Album" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZWE-f6-ciM"/>
+                        <viewControllerLayoutGuide type="bottom" id="tLx-T3-Tzt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Hvv-HX-JWd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vFS-X2-yuc">
+                                <rect key="frame" x="277" y="285" width="54" height="30"/>
+                                <state key="normal" title="Dismiss">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismiss" destination="kkX-PP-BF5" eventType="touchDown" id="GuY-Xk-bQL"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qu5-Ph-dcD">
+                                <rect key="frame" x="153" y="130" width="294" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Thb-Ny-SLl"/>
+                                    <constraint firstAttribute="width" constant="294" id="j8t-g1-ofu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="qu5-Ph-dcD" firstAttribute="top" secondItem="ZWE-f6-ciM" secondAttribute="bottom" constant="110" id="3kI-9Q-teH"/>
+                            <constraint firstAttribute="centerY" secondItem="vFS-X2-yuc" secondAttribute="centerY" id="GVJ-AY-vnJ"/>
+                            <constraint firstAttribute="centerX" secondItem="qu5-Ph-dcD" secondAttribute="centerX" id="JBW-Qt-kOS"/>
+                            <constraint firstAttribute="centerX" secondItem="vFS-X2-yuc" secondAttribute="centerX" id="rZi-RY-ihh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="techniqueLabel" destination="qu5-Ph-dcD" id="mmh-tF-Rzs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qbl-ws-qKe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="943" y="183"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="ouP-NY-YhF"/>
+    </inferredMetricsTieBreakers>
+</document>
