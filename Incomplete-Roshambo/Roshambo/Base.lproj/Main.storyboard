@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Move Selection Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="MoveSelectionController" customModule="Roshambo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E9N-U6-jAa">
+                                <rect key="frame" x="226" y="165" width="149" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="149" id="9ct-pa-qz5"/>
+                                    <constraint firstAttribute="height" constant="30" id="zfy-HI-FBV"/>
+                                </constraints>
+                                <state key="normal" title="Rock">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="crushWithRock:" destination="vXZ-lx-hvc" eventType="touchDown" id="UHB-MA-nle"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k3V-Tz-yST">
+                                <rect key="frame" x="226" y="222" width="149" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="149" id="byv-Jk-Wwu"/>
+                                    <constraint firstAttribute="height" constant="30" id="d7T-AN-arK"/>
+                                </constraints>
+                                <state key="normal" title="Scissors">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cutWithScissors:" destination="vXZ-lx-hvc" eventType="touchDown" id="VBA-IT-Pja"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMQ-Il-oqX">
+                                <rect key="frame" x="226" y="281" width="149" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="149" id="SVt-Ic-55V"/>
+                                    <constraint firstAttribute="height" constant="30" id="iYL-Gw-TFa"/>
+                                </constraints>
+                                <state key="normal" title="Paper">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="wWG-N2-qEU" kind="show" identifier="CoverWithPaper" id="XbR-Zc-Pfy"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LMQ-Il-oqX" firstAttribute="top" secondItem="k3V-Tz-yST" secondAttribute="bottom" constant="29" id="2kx-Dr-Ph5"/>
+                            <constraint firstAttribute="centerX" secondItem="E9N-U6-jAa" secondAttribute="centerX" id="9iu-VU-Bkn"/>
+                            <constraint firstItem="k3V-Tz-yST" firstAttribute="top" secondItem="E9N-U6-jAa" secondAttribute="bottom" constant="27" id="VGg-f7-w2X"/>
+                            <constraint firstItem="E9N-U6-jAa" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="101" id="q8c-3w-a6U"/>
+                            <constraint firstAttribute="centerX" secondItem="LMQ-Il-oqX" secondAttribute="centerX" id="sJu-Ao-goI"/>
+                            <constraint firstAttribute="centerX" secondItem="k3V-Tz-yST" secondAttribute="centerX" id="sva-MW-KSf"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="5Xu-JK-Kyl"/>
+                    <connections>
+                        <segue destination="wWG-N2-qEU" kind="show" identifier="CutWithScissors" id="I6e-ri-luP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="602" y="-298"/>
+        </scene>
+        <!--Match Result View Controller-->
+        <scene sceneID="kOC-eT-9bJ">
+            <objects>
+                <viewController storyboardIdentifier="MatchResultViewController" id="wWG-N2-qEU" customClass="MatchResultViewController" customModule="Roshambo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JgY-DP-ccA"/>
+                        <viewControllerLayoutGuide type="bottom" id="VUA-Gs-fXu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gnu-cm-w6c">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vEk-Wu-dTi">
+                                <rect key="frame" x="16" y="210" width="568" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Xnt-ub-pqo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vEk-Wu-dTi" firstAttribute="trailing" secondItem="gnu-cm-w6c" secondAttribute="trailingMargin" id="1S0-Jl-QSl"/>
+                            <constraint firstItem="vEk-Wu-dTi" firstAttribute="leading" secondItem="gnu-cm-w6c" secondAttribute="leadingMargin" id="26q-QF-Z2y"/>
+                            <constraint firstItem="vEk-Wu-dTi" firstAttribute="top" secondItem="JgY-DP-ccA" secondAttribute="bottom" constant="146" id="PaT-5E-9aR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="resultLabel" destination="vEk-Wu-dTi" id="TKI-AK-U1v"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Q3-c2-es6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1319" y="-294"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="XbR-Zc-Pfy"/>
+    </inferredMetricsTieBreakers>
+</document>
