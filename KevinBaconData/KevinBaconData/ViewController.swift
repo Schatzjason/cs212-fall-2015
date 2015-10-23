@@ -14,10 +14,6 @@ import UIKit
  * is in a file named "kevinBaconMoviesData". It contains the 
  * data returned from a call to TheMovieDB.com's API, requesting
  * the movies in which Kevin Bacon is a cast member or crew member.
- *
- * You can see a "pretty printed" version of this data in the file
- * named "kevinBconMoviesPretty.txt". It might be good to briefly
- * familiarize yourself with the data before you proceed. 
  */
 
 class ViewController: UIViewController {
@@ -41,13 +37,13 @@ class ViewController: UIViewController {
         let jsonDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &error) as? [String : AnyObject]
         
         // Let's pause to check for an error. There probably won't be one in this case
-        if let error = error? {
+        if let error = error {
             println("error parsing JSON data: \(error)")
         }
         
         // Now, we can can start carefully unwrapping the result of the JSONObjectWithData invocation. 
         // First check to make sure that we have a value
-        if let dictionary = jsonDictionary? {
+        if let dictionary = jsonDictionary {
 
             // Next, we can start making assumptions about what this JSON object contains. If you look at the 
             // file named kevinBaconMoviesPretty.txt you will see a formatted version of the JSON data. Notice

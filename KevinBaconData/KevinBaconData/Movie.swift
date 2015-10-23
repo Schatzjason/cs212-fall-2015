@@ -20,13 +20,9 @@ struct Movie {
     var releaseDate: NSDate? = nil
     
     init(dictionary: [String : AnyObject]) {
-        title = dictionary[Movie.Title] as String
-        id = dictionary[Movie.ID] as Int
+        title = dictionary[Movie.Title] as! String
+        id = dictionary[Movie.ID] as! Int
         posterPath = dictionary[Movie.PosterPath] as? String
-        
-        if let releaseDateString = dictionary[Movie.ReleaseData] as? String {
-            releaseDate = TheMovieDB.sharedDateFormatter.dateFromString(releaseDateString)
-        }
     }
     
     static func moviesFromResults(results: [[String : AnyObject]]) -> [Movie] {
