@@ -14,9 +14,13 @@ extension TheMovieDB {
     
         // MARK: - URLs
         static let ApiKey = "3c534dc71a2f9d28e9594e5773abcc93"
-        static let BaseUrl = "http://api.themoviedb.org/3/"
-        static let BaseUrlSSL = "https://api.themoviedb.org/3/"
-        static let BaseImageUrl = "http://image.tmdb.org/t/p/"
+        static let BaseURL = "https://api.themoviedb.org/3/"
+        static let BaseImageURL =  "https://image.tmdb.org/t/p/"
+    }
+    
+    struct Image {
+        var PosterSizes = ["w92", "w154", "w185", "w342", "w500", "w780", "original"]
+        var ProfileSizes = ["w45", "w185", "h632", "original"]
     }
     
     struct Resources {

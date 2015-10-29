@@ -13,18 +13,15 @@ class TheMovieDB : NSObject {
     
     var session: NSURLSession
     
-    var config = Config.unarchivedInstance() ?? Config()
-    
     override init() {
         session = NSURLSession.sharedSession()
         super.init()        
     }
 
     
-    // MARK: - All purpose task method for data
+    // MARK: - URL Helper
     
-    func taskForResource(resource: String, parameters: [String : AnyObject], completionHandler: CompletionHander) -> NSURLSessionDataTask {
-        
+    class func URLForResource(resource: String, parameters: [String : AnyObject]) -> NSURL {
         var mutableParameters = parameters
         var mutableResource = resource
         
@@ -39,95 +36,31 @@ class TheMovieDB : NSObject {
             mutableParameters.removeValueForKey(Keys.ID)
         }
         
-        let urlString = Constants.BaseUrl + mutableResource + TheMovieDB.escapedParameters(mutableParameters)
+        let urlString = Constants.BaseURL + mutableResource + TheMovieDB.escapedParameters(mutableParameters)
         let url = NSURL(string: urlString)!
-        let request = NSURLRequest(URL: url)
         
-        println(url)
-        
-        let task = session.dataTaskWithRequest(request) {data, response, downloadError in
-
-            if let error = downloadError? {
-                let newError = TheMovieDB.errorForData(data, response: response, error: error)
-                completionHandler(result: nil, error: downloadError)
-            } else {
-                println("Step 3 - taskForResource's completionHandler is invoked.")
-                TheMovieDB.parseJSONWithCompletionHandler(data, completionHandler)
-            }
-        }
-        
-        task.resume()
-        
-        return task
+        return url
     }
     
-    // MARK: - All purpose task method for images
-    
-    func taskForImageWithSize(size: String, filePath: String, completionHandler: (imageData: NSData?, error: NSError?) ->  Void) -> NSURLSessionTask {
+    class func URLForImageWithPath(filePath: String, var size: String? = nil) -> NSURL {
         
-        let urlComponents = [size, filePath]
-        let baseURL = NSURL(string: config.baseImageURLString)!
-        let url = baseURL.URLByAppendingPathComponent(size).URLByAppendingPathComponent(filePath)
+        size = size ?? "w154"
         
-        println(url)
+        let baseURL = NSURL(string: Constants.BaseImageURL)!
         
-        let request = NSURLRequest(URL: url)
-        
-        let task = session.dataTaskWithRequest(request) {data, response, downloadError in
-            
-            if let error = downloadError? {
-                let newError = TheMovieDB.errorForData(data, response: response, error: downloadError)
-                completionHandler(imageData: nil, error: newError)
-            } else {
-                completionHandler(imageData: data, error: nil)
-            }
-        }
-        
-        task.resume()
-        
-        return task
+        return baseURL.URLByAppendingPathComponent(size!).URLByAppendingPathComponent(filePath)
     }
     
-    
-    // MARK: - Helpers
-    
-    
-    // Try to make a better error, based on the status_message from TheMovieDB. If we cant then return the previous error
-
-    class func errorForData(data: NSData?, response: NSURLResponse?, error: NSError) -> NSError {
-        
-        if let parsedResult = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments, error: nil) as? [String : AnyObject] {
-            if let errorMessage = parsedResult[TheMovieDB.Keys.ErrorStatusMessage] as? String {
-
-                let userInfo = [NSLocalizedDescriptionKey : errorMessage]
-                
-                return NSError(domain: "TMDB Error", code: 1, userInfo: userInfo)
-            }
-        }
-        
-        return error
-    }
-    
-    // Parsing the JSON
-    
-    class func parseJSONWithCompletionHandler(data: NSData, completionHandler: CompletionHander) {
-        var parsingError: NSError? = nil
-        
-        let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
-        
-        if let error = parsingError? {
-            completionHandler(result: nil, error: error)
-        } else {
-            println("Step 4 - parseJSONWithCompletionHandler is invoked.")
-            completionHandler(result: parsedResult, error: nil)
-        }
-    }
     
     // URL Encoding a dictionary into a parameter string
     
     class func escapedParameters(parameters: [String : AnyObject]) -> String {
         
-        var urlVars = [String]()
+        if parameters.isEmpty {
+            return ""
+        }
+        
+        var urlKeyValuePairs = [String]()
 
         for (key, value) in parameters {
             
@@ -139,45 +72,17 @@ class TheMovieDB : NSObject {
             
             // Append it
             
-            if let unwrappedEscapedValue = escapedValue? {
-                urlVars += [key + "=" + "\(unwrappedEscapedValue)"]
+            if let escapedValue = escapedValue {
+                let keyValuePair = "\(key)=\(escapedValue)"
+                urlKeyValuePairs.append(keyValuePair)
             } else {
-                println("Warning: trouble excaping string \"\(stringValue)\"")
+                print("Warning: trouble excaping string \"\(stringValue)\"")
             }
         }
         
-        return (!urlVars.isEmpty ? "?" : "") + join("&", urlVars)
+        return urlKeyValuePairs.joinWithSeparator("&")
     }
     
-    
-    // MARK: - Shared Instance
-    
-    class func sharedInstance() -> TheMovieDB {
-        
-        struct Singleton {
-            static var sharedInstance = TheMovieDB()
-        }
-        
-        return Singleton.sharedInstance
-    }
-    
-    // MARK: - Shared Date Formatter
-    
-    class var sharedDateFormatter: NSDateFormatter  {
-        
-        struct Singleton {
-            static let dateFormatter = Singleton.generateDateFormatter()
-            
-            static func generateDateFormatter() -> NSDateFormatter {
-                var formatter = NSDateFormatter()
-                formatter.dateFormat = "yyyy-mm-dd"
-                
-                return formatter
-            }
-        }
-        
-        return Singleton.dateFormatter
-    }
     
     // MARK: - Shared Image Cache
 

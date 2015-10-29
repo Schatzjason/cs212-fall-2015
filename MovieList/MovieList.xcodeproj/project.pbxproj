@@ -11,7 +11,6 @@
 		4D8B05051BE2C87800CF1A56 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8B04FF1BE2C87800CF1A56 /* Movie.swift */; };
 		4D8B05061BE2C87800CF1A56 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8B05001BE2C87800CF1A56 /* Person.swift */; };
 		4D8B05071BE2C87800CF1A56 /* TheMovieDB-Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8B05011BE2C87800CF1A56 /* TheMovieDB-Constants.swift */; };
-		4D8B05081BE2C87800CF1A56 /* TheMovieDB-Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8B05021BE2C87800CF1A56 /* TheMovieDB-Convenience.swift */; };
 		4D8B05091BE2C87800CF1A56 /* TheMovieDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8B05031BE2C87800CF1A56 /* TheMovieDB.swift */; };
 		4DE0792A1BE2BF3C007C65AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE079291BE2BF3C007C65AF /* AppDelegate.swift */; };
 		4DE079311BE2BF3C007C65AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DE0792F1BE2BF3C007C65AF /* Main.storyboard */; };
@@ -24,7 +23,6 @@
 		4D8B04FF1BE2C87800CF1A56 /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Movie.swift; path = TheMovieDB/Movie.swift; sourceTree = "<group>"; };
 		4D8B05001BE2C87800CF1A56 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Person.swift; path = TheMovieDB/Person.swift; sourceTree = "<group>"; };
 		4D8B05011BE2C87800CF1A56 /* TheMovieDB-Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TheMovieDB-Constants.swift"; path = "TheMovieDB/TheMovieDB-Constants.swift"; sourceTree = "<group>"; };
-		4D8B05021BE2C87800CF1A56 /* TheMovieDB-Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TheMovieDB-Convenience.swift"; path = "TheMovieDB/TheMovieDB-Convenience.swift"; sourceTree = "<group>"; };
 		4D8B05031BE2C87800CF1A56 /* TheMovieDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TheMovieDB.swift; path = TheMovieDB/TheMovieDB.swift; sourceTree = "<group>"; };
 		4DE079261BE2BF3C007C65AF /* MovieList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DE079291BE2BF3C007C65AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,7 +50,6 @@
 				4D8B04FF1BE2C87800CF1A56 /* Movie.swift */,
 				4D8B05001BE2C87800CF1A56 /* Person.swift */,
 				4D8B05011BE2C87800CF1A56 /* TheMovieDB-Constants.swift */,
-				4D8B05021BE2C87800CF1A56 /* TheMovieDB-Convenience.swift */,
 				4D8B05031BE2C87800CF1A56 /* TheMovieDB.swift */,
 			);
 			name = TheMovieDB;
@@ -158,7 +155,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D8B05081BE2C87800CF1A56 /* TheMovieDB-Convenience.swift in Sources */,
 				4D8B05041BE2C87800CF1A56 /* ImageCache.swift in Sources */,
 				4DE0792A1BE2BF3C007C65AF /* AppDelegate.swift in Sources */,
 				4D8B05071BE2C87800CF1A56 /* TheMovieDB-Constants.swift in Sources */,

@@ -22,7 +22,6 @@ class ImageCache {
         }
         
         let path = pathForIdentifier(identifier!)
-        var data: NSData?
         
         // First try the memory cache
         if let image = inMemoryCache.objectForKey(path) as? UIImage {
@@ -53,7 +52,7 @@ class ImageCache {
         inMemoryCache.setObject(image!, forKey: path)
         
         // And in documents directory
-        let data = UIImagePNGRepresentation(image!)
+        let data = UIImagePNGRepresentation(image!)!
         data.writeToFile(path, atomically: true)
     }
     
