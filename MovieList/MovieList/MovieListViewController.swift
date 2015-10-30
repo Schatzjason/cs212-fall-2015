@@ -14,6 +14,12 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let parameters = ["id" : 33]
+        
+        let url = TheMovieDB.URLForResource(TheMovieDB.Resources.PersonIDMovieCredits, parameters: parameters)
+        
+        print(url)
     }
     
     // MARK: - Table View

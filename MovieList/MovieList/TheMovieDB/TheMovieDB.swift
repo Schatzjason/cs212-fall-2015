@@ -8,35 +8,23 @@
 import Foundation
 
 class TheMovieDB : NSObject {
-    
-    typealias CompletionHander = (result: AnyObject!, error: NSError?) -> Void
-    
-    var session: NSURLSession
-    
-    override init() {
-        session = NSURLSession.sharedSession()
-        super.init()        
-    }
 
-    
     // MARK: - URL Helper
     
-    class func URLForResource(resource: String, parameters: [String : AnyObject]) -> NSURL {
-        var mutableParameters = parameters
-        var mutableResource = resource
+    class func URLForResource(var resource: String, var parameters: [String : AnyObject]) -> NSURL {
         
         // Add in the API Key
-        mutableParameters["api_key"] = Constants.ApiKey
+        parameters["api_key"] = Constants.ApiKey
         
         // Substitute the id parameter into the resource
         if resource.rangeOfString(":id") != nil {
             assert(parameters[Keys.ID] != nil)
             
-            mutableResource = mutableResource.stringByReplacingOccurrencesOfString(":id", withString: "\(parameters[Keys.ID]!)")
-            mutableParameters.removeValueForKey(Keys.ID)
+            resource = resource.stringByReplacingOccurrencesOfString(":id", withString: "\(parameters[Keys.ID]!)")
+            parameters.removeValueForKey(Keys.ID)
         }
         
-        let urlString = Constants.BaseURL + mutableResource + TheMovieDB.escapedParameters(mutableParameters)
+        let urlString = Constants.BaseURL + resource + "?" + TheMovieDB.escapedParameters(parameters)
         let url = NSURL(string: urlString)!
         
         return url
