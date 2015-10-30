@@ -80,7 +80,8 @@ class TheMovieDB : NSObject {
             }
         }
         
-        return urlKeyValuePairs.joinWithSeparator("&")
+        return join("&", urlKeyValuePairs)
+        //return urlKeyValuePairs.joinWithSeparator("&") // More modern approach...
     }
     
     
