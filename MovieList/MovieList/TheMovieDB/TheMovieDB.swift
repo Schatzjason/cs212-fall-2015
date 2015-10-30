@@ -72,6 +72,29 @@ class TheMovieDB : NSObject {
         //return urlKeyValuePairs.joinWithSeparator("&") // More modern approach...
     }
     
+    // MARK: - Helpers
+    
+    class func moviesFromData(data: NSData) -> [Movie] {
+        
+        // Get the JSON Dictionary
+        var dictionary: [String : AnyObject]!
+        
+        //do {
+        dictionary = /*try*/ NSJSONSerialization.JSONObjectWithData(
+            data,
+            options: NSJSONReadingOptions.AllowFragments,
+            error: nil)  as! [String : AnyObject]
+        //} catch _ {}
+        
+        // Get the array of movie dictionaries
+        let movieDictionaries = dictionary["cast"] as! [[String : AnyObject]]
+        
+        // Create the array of Movie struct dictionaries
+        let movies = movieDictionaries.map() { Movie(dictionary: $0)}
+        
+        return movies
+    }
+    
     
     // MARK: - Shared Image Cache
 
