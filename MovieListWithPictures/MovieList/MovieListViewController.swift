@@ -8,42 +8,93 @@
 
 import UIKit
 
-class MovieListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MovieListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var movies: [Movie] = [Movie]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    // This will store out task for downloading movies.
+    var task: NSURLSessionTask?
+    
+    // Here we make a queue that is guaranteed to execute blocks one at a time
+    var serialQueue = dispatch_queue_create("MovieListViewController.SerialQueue", DISPATCH_QUEUE_SERIAL)
+    
+    
+    // MARK: - Search Task
+    
+    func taskForMoviesWithQuerry(querry: String) -> NSURLSessionTask {
+    
+        let parameters = ["query" : querry]
         
-        let parameters = ["id" : 33]
+        let url = TheMovieDB.URLForResource(TheMovieDB.Resources.SearchMovie, parameters: parameters)
         
-        let url = TheMovieDB.URLForResource(TheMovieDB.Resources.PersonIDMovieCredits, parameters: parameters)
+        print(url)
 
         let task = NSURLSession.sharedSession().dataTaskWithURL(url) { data, response, error in
             
-            dispatch_async(dispatch_get_main_queue()) {
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.hidden = true
-                self.tableView.alpha = 1.0
+            if let error = error {
+                print(error)
+                return
             }
             
-            if let error = error {print(error);return}
+            dispatch_async(self.serialQueue) {
+                
+                self.task = nil
+                
+                if let error = error {print(error);return}
 
-            self.movies = TheMovieDB.moviesFromData(data)
+                self.movies = TheMovieDB.moviesFromData(data!)
             
-            dispatch_async(dispatch_get_main_queue()) {
-                self.tableView.reloadData()
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.tableView.reloadData()
+                }
             }
         }
         
-        task.resume()
+        return task
+    }
+    
+    
+    // MARK: - Search Bar Delegate
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         
-        self.activityIndicator.startAnimating()
-        self.activityIndicator.hidden = false
-        self.tableView.alpha = 0.2
+        dispatch_async(serialQueue) {
+            
+            if let task = self.task {
+                task.cancel()
+            }
+            
+            if searchText.isEmpty {
+                self.task = nil
+                self.movies = [Movie]()
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.tableView.reloadData()
+                }
+            } else {
+                self.task = self.taskForMoviesWithQuerry(searchText)
+                self.task!.resume()
+            }
+        }
+    }
+    
+    
+    // MARK: - Toggle UI while downloading
+    
+    func setUIToDownloading(isDownloading: Bool) {
+        
+        if isDownloading {
+            self.activityIndicator.startAnimating()
+        } else {
+            self.activityIndicator.stopAnimating()
+        }
+        
+        self.activityIndicator.hidden = isDownloading
+        self.tableView.alpha = isDownloading ? 0.2 : 1.0
     }
     
     // MARK: - Table View
@@ -53,7 +104,7 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell")!
         
         let movie = movies[indexPath.row]
         

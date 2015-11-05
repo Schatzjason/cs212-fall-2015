@@ -10,7 +10,7 @@ import Foundation
 class TheMovieDB : NSObject {
 
     // MARK: - URL Helper
-    
+        
     class func URLForResource(var resource: String, var parameters: [String : AnyObject]) -> NSURL {
         
         // Add in the API Key
@@ -68,8 +68,8 @@ class TheMovieDB : NSObject {
             }
         }
         
-        return join("&", urlKeyValuePairs)
-        //return urlKeyValuePairs.joinWithSeparator("&") // More modern approach...
+        //return join("&", urlKeyValuePairs)
+        return urlKeyValuePairs.joinWithSeparator("&") // More modern approach...
     }
     
     // MARK: - Helpers
@@ -79,15 +79,15 @@ class TheMovieDB : NSObject {
         // Get the JSON Dictionary
         var dictionary: [String : AnyObject]!
         
-        //do {
-        dictionary = /*try*/ NSJSONSerialization.JSONObjectWithData(
+        do {
+            dictionary = try NSJSONSerialization.JSONObjectWithData(
             data,
-            options: NSJSONReadingOptions.AllowFragments,
-            error: nil)  as! [String : AnyObject]
-        //} catch _ {}
+            options: NSJSONReadingOptions.AllowFragments
+            /* , error: nil*/)  as! [String : AnyObject]
+        } catch _ {}
         
         // Get the array of movie dictionaries
-        let movieDictionaries = dictionary["cast"] as! [[String : AnyObject]]
+        let movieDictionaries = dictionary["results"] as! [[String : AnyObject]]
         
         // Create the array of Movie struct dictionaries
         let movies = movieDictionaries.map() { Movie(dictionary: $0)}
