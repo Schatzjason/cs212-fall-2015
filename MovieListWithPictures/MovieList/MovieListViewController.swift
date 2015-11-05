@@ -109,6 +109,7 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
         let movie = movies[indexPath.row]
         
         cell.textLabel!.text = movie.title
+        cell.imageView!.image = UIImage(named: "placeHolder")
         
         return cell
     }
