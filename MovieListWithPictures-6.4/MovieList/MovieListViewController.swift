@@ -109,8 +109,58 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
         let movie = movies[indexPath.row]
         
         cell.textLabel!.text = movie.title
-        cell.imageView!.image = UIImage(named: "placeHolder")
+        
+        // check for cached image
+        if let image = movie.posterImage {
+            cell.imageView!.image = image
+        } else {
+            cell.imageView!.image = UIImage(named: "placeHolder")
+            fetchPosterForMovie(movie, cell: cell)
+        }
         
         return cell
     }
+    
+    func fetchPosterForMovie(movie: Movie, cell: UITableViewCell) {
+     
+        // It this movie does not have an image in the db, we can stop here
+        if movie.posterPath == nil {
+            cell.imageView!.image = UIImage(named: "noImage")
+            return
+        }
+        
+        let url = TheMovieDB.URLForImageWithPath(movie.posterPath!)
+                
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url) {
+            data, response, error in
+            
+            // Start with no image
+            var image = UIImage(named: "noImage")!
+            
+            // If there is an error, print it, and leve the no-image in place
+            if let error = error {
+                print(error)
+            }
+            
+            // Otherwise try to make an image
+            else if let data = data {
+                if let newImage = UIImage(data: data) {
+                    image = newImage                // Replace the no-image
+                    movie.posterImage = newImage    // Cache it
+                }
+            }
+            
+            // Set the cell's image back on the main thread
+            dispatch_async(dispatch_get_main_queue()){
+                cell.imageView!.image = image
+            }
+        }
+        
+        task.resume()
+    }
 }
+
+
+
+
+
