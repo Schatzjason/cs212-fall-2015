@@ -19,13 +19,20 @@ class Movie {
     var posterPath: String? = nil
     
     init(dictionary: [String : AnyObject]) {
-        title = dictionary[Keys.Title] as String
-        id = dictionary[TheMovieDB.Keys.ID] as Int
+        title = dictionary[Keys.Title] as! String
+        id = dictionary[TheMovieDB.Keys.ID] as! Int
         posterPath = dictionary[Keys.PosterPath] as? String
     }
     
     func toDictionary() -> [String : AnyObject] {
         var dictionary = [String : AnyObject]()
+  
+        dictionary[Keys.Title] = title
+        dictionary[TheMovieDB.Keys.ID] = id
+        
+        if let path = posterPath {
+            dictionary[Keys.PosterPath] = path
+        }
         
         return dictionary
     }

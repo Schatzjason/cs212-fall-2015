@@ -80,10 +80,10 @@ class TheMovieDB : NSObject {
         
 
             dictionary = NSJSONSerialization.JSONObjectWithData(data,
-            options: NSJSONReadingOptions.AllowFragments, error: nil) as [String : AnyObject]
+            options: NSJSONReadingOptions.AllowFragments, error: nil) as! [String : AnyObject]
         
         // Get the array of movie dictionaries
-        let movieDictionaries = dictionary["results"] as [[String : AnyObject]]
+        let movieDictionaries = dictionary["results"] as! [[String : AnyObject]]
         
         // Create the array of Movie struct dictionaries
         let movies = movieDictionaries.map() { Movie(dictionary: $0)}

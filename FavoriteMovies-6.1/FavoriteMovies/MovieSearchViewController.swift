@@ -14,7 +14,11 @@ class MovieSearchViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
 
+    
+    let SearchTextKey:String = "search text"
     var movies: [Movie] = [Movie]()
+    
+    var favMovieStore: PersistentMovieStore!
 
     // This will store out task for downloading movies.
     var task: NSURLSessionTask?
@@ -25,7 +29,14 @@ class MovieSearchViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let delegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        favMovieStore = delegate.favoriteMovieStore
+        
+        let storedText = NSUserDefaults.standardUserDefaults().objectForKey(SearchTextKey) as? String
+        
+        searchBar.text = storedText ?? ""
+        
+        loadMoviesForSearchText(searchBar.text)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -71,6 +82,11 @@ class MovieSearchViewController: UIViewController, UITableViewDataSource, UITabl
     // MARK: - Search Bar Delegate
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        NSUserDefaults.standardUserDefaults().setObject(searchText, forKey: SearchTextKey)
+        loadMoviesForSearchText(searchText)
+    }
+    
+    func loadMoviesForSearchText(searchText: String) {
         
         dispatch_async(serialQueue) {
             
@@ -93,7 +109,7 @@ class MovieSearchViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! UITableViewCell
         
         let movie = movies[indexPath.row]
         
@@ -109,7 +125,7 @@ class MovieSearchViewController: UIViewController, UITableViewDataSource, UITabl
         
         // Mark favorites
         
-        cell.accessoryType = /* is a favorite? */ false ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
+        cell.accessoryType = favMovieStore.contains(movie) ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
         
         return cell
     }
@@ -160,6 +176,12 @@ class MovieSearchViewController: UIViewController, UITableViewDataSource, UITabl
         let movie = movies[indexPath.row]
         
         // remember that this movie is a favorite, or it not a favorite
+        if favMovieStore.contains(movie) {
+            favMovieStore.remove(movie)
+        }
+        else {
+            favMovieStore.append(movie)
+        }
         
         tableView.reloadData()
     }
