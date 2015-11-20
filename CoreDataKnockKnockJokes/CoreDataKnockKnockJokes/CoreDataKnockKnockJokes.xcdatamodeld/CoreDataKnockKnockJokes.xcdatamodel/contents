@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14F27" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Joke" representedClassName="CoreDataKnockKnockJokes.Joke" syncable="YES">
+        <attribute name="answer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rating" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+    </entity>
+    <entity name="JokeTeller" representedClassName="JokeTeller" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rating" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="favoriteJoke" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Joke" syncable="YES"/>
+        <relationship name="jokes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Joke" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Joke" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="JokeTeller" positionX="-18" positionY="27" width="128" height="105"/>
+    </elements>
+</model>
